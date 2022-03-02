@@ -17,7 +17,6 @@ const gameState = {
 // const board so we can add divs for playerturn records, announcements
 
 const board = document.querySelector("#board");
-//forEach checks each part of array once.
 
 // starting with changing players -ref pixelate workshop
 
@@ -29,6 +28,7 @@ board.addEventListener("click", function (event) {
   if (position !== null) {
     return;
   }
+
   gameState.board[firstPosition][secondPosition] = gameState.currentPlayer;
 
   render();
@@ -49,6 +49,7 @@ function render() {
       let currentElement = gameState.board[i][k];
       let cell = document.getElementById(`${i}-${k}`);
       cell.innerText = currentElement;
+      checkWinner();
     }
   }
 }
@@ -68,27 +69,36 @@ function turn() {
 // How to block filled spaces?
 // if === "", continue? remove the available space?
 
-//check is there's a winner or tie game.
+//check is there's a winner or tie game. checks by inner texts. check if rows are equal.
 
 const winning = [
   // rows
-  [0 - 0, 0 - 1, 0 - 2],
-  [1 - 0, 1 - 1, 1 - 2],
-  [2 - 0, 2 - 1, 2 - 2],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
   //columns
-  [0 - 0, 1 - 0, 2 - 0],
-  [0 - 1, 1 - 1, 2 - 1],
-  [0 - 2, 1 - 2, 2 - 2],
-  //   diagonals
-  [0 - 0, 1 - 1, 2 - 2],
-  [0 - 2, 1 - 1, 2 - 0],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  //diagonals
+  [0, 4, 8],
+  [2, 4, 6],
 ];
 
 function checkWinner() {
   for (let w = 0; w < winning.length; w++) {
-    const winConditions = winning[w];
-    console.log(winConditions);
+    const [a, b, c] = winning[w];
   }
+
+  if (
+    // if these are not the same, there is not a winner...yet or it's a draw.
+    gameState.board[a] &&
+    gameState.board[a] === gameState.board[b] &&
+    gameState.board[a] === gameState.board[c]
+  ) {
+    return gameState.board[a];
+  }
+  console.log(gameState.board[a]);
 }
 checkWinner();
 // const playerTurn = document.createElement('div')
@@ -100,12 +110,12 @@ checkWinner();
 
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
-const resetBtn = document.getElementsByClassName("restart");
+// const resetBtn = document.getElementsByClassName("restart");
 
-resetBtn.addEventListener("click", function () {
-  Restart();
-  render();
-});
+// resetBtn.addEventListener("click", function () {
+//   Restart();
+//   render();
+// });
 
 function restart() {
   gameState.board = [
