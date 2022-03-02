@@ -10,7 +10,7 @@ const gameState = {
   ],
   winner: "WINNER!",
   tieGame: "IT'S A TIE!",
-  currentPlayer: "playerX",
+  currentPlayer: "X",
 };
 
 // //access above by gameState.board[0][0]
@@ -21,17 +21,13 @@ const board = document.querySelector("#board");
 
 // starting with changing players -ref pixelate workshop
 
-let currentPlayer = "boxes[0]";
-
 board.addEventListener("click", function (event) {
   console.log(event.target.id);
-  //the positions are referencing the string ids for the divs.
   let firstPosition = event.target.id[0];
   let secondPosition = event.target.id[2];
-  //
-  gameState.board[firstPosition][secondPosition] = gameState.turn;
-  console.log(gameState.board);
+  gameState.board[firstPosition][secondPosition] = gameState.currentPlayer;
   render();
+  turn();
 });
 // let boxes = gameState.board
 // const imageX = document.createElement('img')
@@ -50,8 +46,16 @@ function render() {
       cell.innerText = currentElement;
     }
   }
+  console.log(cell.innerText);
 }
 
+function turn() {
+  if (gameState.currentPlayer === "X") {
+    gameState.currentPlayer = "O";
+  } else if (gameState.currentPlayer === "O") {
+    gameState.currentPlayer = "X";
+  }
+}
 //classlist will add the class to the element without deleting any existing class names
 
 // How to change players in display. need to add div.
@@ -61,8 +65,6 @@ function render() {
 // if === "", continue? remove the available space?
 
 //check is there's a winner or tie game.
-
-// How to display who's turn it is
 
 // const playerTurn = document.createElement('div')
 // playerTurn.classList.add('whos-turn')
