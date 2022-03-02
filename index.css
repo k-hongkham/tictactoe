@@ -57,13 +57,4 @@ tr:last-child div {
 }
 
 /* JS css mods */
-
-.playerX {
-	background: url("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/letter_X_red-1024.png") no-repeat
-		center;
-}
-
-.playerO {
-	background: url("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/letter_X_red-1024.png") no-repeat
-		center;
-}
+/* inputs photo when called */

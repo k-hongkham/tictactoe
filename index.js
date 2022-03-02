@@ -11,6 +11,7 @@ const gameState = {
     winner: "WINNER!",
     tieGame: "IT'S A TIE!",
     turn:   'X',
+    currentPlayer: 'playerX'
 }
    
 
@@ -25,26 +26,39 @@ const board = document.querySelector('#board')
 
 
 // starting with changing players -ref pixelate workshop
-const currentPlayer = "X"
 
-const cells = document.querySelectorAll('.cell')
-let boxes = gameState.board
 
-cells.forEach(function(event) {
-    event.addEventListener('click', function(event) {
-        let index = boxes.indexOf(event.target);
-        cells.[index].classList.add('X')
+let currentPlayer = "boxes[0]"
+
+
+
+cells.addEventListener('click', function(event) {  
+    let boxes = gameState.board
+    const cells = document.querySelectorAll('.cell')
+    const imageX = document.createElement('img')
+    imageX.src = url("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/letter_X_red-1024.png");
+    document.querySelector('#board').appendChild(image)
+    let index = boxes.indexOf(event.target);
+            cells[index].classList.add('boxes[0]')
+    
     })
-})
+
 
 //classlist will add the class to the element without deleting any existing class names
 
 
-// How to change players
+// How to change players in display. need to add div.
 //addEventListener where clicks then inputs X or O
+// 
 
+// function whosTurn () {
+//     if (gameState.currentPlayer === 'playerX') {
+//         gameState.currentPlayer ==='playerO'
+//     }
+// }
 
-
+// How to block filled spaces?
+// if === "", continue? remove the available space?
 
 
 
@@ -94,31 +108,6 @@ cells.forEach(function(event) {
 // winner(theGame)
 // console.log(winner)
 
-// another wincheck
-// const cells = document.querySelectorAll('.cell');
-
-// cells.addEventListener ('click', function()
-//         if (cells === "") {
-
-//         }
-//                 )
-// let winning = [ [0,1,2],
-//                 [3,4,5],
-//                 [6,7,8],
-//                 [0,3,6],
-//                 [1,4,7],
-//                 [2,5,8],
-//                 [0,4,8],
-//                 [2,4,6]]
-
-// function checkForWinner() {
-//    {
-       
-//     })
-// }
-
-
-
 // How to display who's turn it is
 
 // const playerTurn = document.createElement('div')
@@ -141,31 +130,6 @@ cells.forEach(function(event) {
 
 // }
 
-
-
-
-
-
-// //listen for click, then it changes players, disable clicks in spots that are taken
-// let currentPlayer = gameState.players[0];?
-
-// let currentPLayer = "X"
-
-
-// const cells = document.querySelectorAll('.cell');
-// cell = gameState.board
-
-// cell.forEach(function(event) {
-//     box.addEventListener('click', function(event) {
-
-//         const index = theGame.indexOf(event.target);
-//         cell.[index].classList.add('current')
-      
-//         checkForWinner()
-       
-    
-//     })
-// })
 
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
