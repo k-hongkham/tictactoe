@@ -25,7 +25,12 @@ board.addEventListener("click", function (event) {
   console.log(event.target.id);
   let firstPosition = event.target.id[0];
   let secondPosition = event.target.id[2];
+  const position = gameState.board[firstPosition][secondPosition];
+  if (position !== null) {
+    return;
+  }
   gameState.board[firstPosition][secondPosition] = gameState.currentPlayer;
+
   render();
   turn();
 });
@@ -46,7 +51,6 @@ function render() {
       cell.innerText = currentElement;
     }
   }
-  console.log(cell.innerText);
 }
 
 function turn() {
@@ -66,6 +70,27 @@ function turn() {
 
 //check is there's a winner or tie game.
 
+const winning = [
+  // rows
+  [0 - 0, 0 - 1, 0 - 2],
+  [1 - 0, 1 - 1, 1 - 2],
+  [2 - 0, 2 - 1, 2 - 2],
+  //columns
+  [0 - 0, 1 - 0, 2 - 0],
+  [0 - 1, 1 - 1, 2 - 1],
+  [0 - 2, 1 - 2, 2 - 2],
+  //   diagonals
+  [0 - 0, 1 - 1, 2 - 2],
+  [0 - 2, 1 - 1, 2 - 0],
+];
+
+function checkWinner() {
+  for (let w = 0; w < winning.length; w++) {
+    const winConditions = winning[w];
+    console.log(winConditions);
+  }
+}
+checkWinner();
 // const playerTurn = document.createElement('div')
 // playerTurn.classList.add('whos-turn')
 // board.appendChild(playerTurn)
@@ -73,25 +98,23 @@ function turn() {
 
 // //Make them work together using event listeners
 
-// function render () {
-//      turns.innerText = gameState.turn
-// }
-
-// function reset() {
-
-// }
-
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
-// const resetBtn = document.createElement('button')
-// resetBtn.classList.add('reset')
-// board.appedChild(resetBtn)
-// resetBtn.innerText = 'Restart'
+const resetBtn = document.getElementsByClassName("restart");
 
-// resetBtn.addEventListener('click', function() {
-//     reset()
-//     render()
-// })
+resetBtn.addEventListener("click", function () {
+  Restart();
+  render();
+});
+
+function restart() {
+  gameState.board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ];
+  gameState.currentPlayer = "X";
+}
 
 //Extra goals is computer player, possibly different modes, easy, med, hard
 // const randomComp = Math.floor(math.random() * 9);

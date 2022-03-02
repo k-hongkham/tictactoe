@@ -1,60 +1,67 @@
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 10px solid black;
-	flex-direction: column;
-	background: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 10px solid black;
+  flex-direction: column;
+  background: gray;
+  height: 100vh;
 }
 
 h1 {
-	text-align: center;
-	font-size: 10em;
+  text-align: center;
+  font-size: 10em;
 }
 table {
-	display: flex;
-	max-height: 100%;
-	max-width: 100%;
-	flex-wrap: wrap;
-	justify-content: center;
-	background: gray;
-	margin: 0 auto;
+  display: flex;
+  max-height: 150vh;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: gray;
+  margin: 0 auto;
 }
 
 /* each box of the game area */
 .cell {
-	display: flex;
-	width: 300px;
-	height: 300px;
-	flex-basis: 0 0 300px;
-	border: 3px solid red;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  width: 300px;
+  height: 300px;
+  flex-basis: 0 0 300px;
+  border: 3px solid red;
+  justify-content: center;
+  align-items: center;
 }
 
 /* removes outside borders of the gamegrid */
 
 td div:first-child {
-	border-left: 0;
+  border-left: 0;
 }
 
 tr td:last-child div {
-	border-right: 0;
+  border-right: 0;
 }
 
 td:nth-child(-n + 3) div {
-	border-top: 0;
+  border-top: 0;
 }
 
 tr:last-child div {
-	border-bottom: 0;
+  border-bottom: 0;
 }
 
 /* JS css mods */
 /* inputs photo when called */
+
+.restart {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
