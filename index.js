@@ -1,8 +1,7 @@
 //Game objective is to get 3 in a row
 //starting point given by workshop
 
-const gameState = {
-  players: ["X", "O"],
+let gameState = {
   board: [
     [null, null, null],
     [null, null, null],
@@ -11,6 +10,7 @@ const gameState = {
   winner: "WINNER!",
   tieGame: "IT'S A TIE!",
   currentPlayer: "X",
+  gameRunning: true,
 };
 
 // //access above by gameState.board[0][0]
@@ -23,7 +23,7 @@ const board = document.querySelector("#board");
 board.addEventListener("click", function (event) {
   let firstPosition = event.target.id[0];
   let secondPosition = event.target.id[2];
-  const position = gameState.board[firstPosition][secondPosition];
+  let position = gameState.board[firstPosition][secondPosition];
   // the if statement needs to come before declaration in order to avoid having the spaces change because new value is Added. If you pu thtis below gameState.board etcetc. the X and O will be interchangable.
   if (position !== null) {
     return;
@@ -115,24 +115,28 @@ function results() {
 // board.appendChild(playerTurn)
 // playerTurn.innerText = gameState.turn
 
-// //Make them work together using event listeners
-
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
-// const resetBtn = document.getElementsByClassName("restart");
+const resetBtn = document.createElement("button");
+resetBtn.classList.add("reset");
+board.appendChild(resetBtn);
+resetBtn.innerText = "RESET";
 
-// resetBtn.addEventListener("click", function () {
-//   Restart();
-//   render();
-// });
+resetBtn.addEventListener("click", function () {
+  reset();
+  render();
+});
 
-function restart() {
-  gameState.board = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-  ];
-  gameState.currentPlayer = "X";
+function reset() {
+  gameState = {
+    board: [
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ],
+    currentPlayer: "X",
+    gameRunning: true,
+  };
 }
 
 //Extra goals is computer player, possibly different modes, easy, med, hard
