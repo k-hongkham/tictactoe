@@ -49,7 +49,6 @@ function render() {
       let currentElement = gameState.board[i][k];
       let cell = document.getElementById(`${i}-${k}`);
       cell.innerText = currentElement;
-      checkWinner();
     }
   }
 }
@@ -71,7 +70,7 @@ function turn() {
 
 //check is there's a winner or tie game. checks by inner texts. check if rows are equal.
 
-const winning = [
+const winner = [
   // rows
   [0, 1, 2],
   [3, 4, 5],
@@ -85,22 +84,30 @@ const winning = [
   [2, 4, 6],
 ];
 
-function checkWinner() {
-  for (let w = 0; w < winning.length; w++) {
-    const [a, b, c] = winning[w];
-  }
+function results() {
+  let roundEnd = false;
 
-  if (
-    // if these are not the same, there is not a winner...yet or it's a draw.
-    gameState.board[a] &&
-    gameState.board[a] === gameState.board[b] &&
-    gameState.board[a] === gameState.board[c]
-  ) {
-    return gameState.board[a];
+  for (let w = 0; w < winner.length; w++) {
+    const game = gameState.board;
+    const won = winner[i];
+
+    let pos1 = game[winning[0]];
+    let pos2 = game[winning[1]];
+    let pos3 = game[winning[2]];
+    // if these spaces are blank. there is no possible way to winner.
+    if (a === "" || b === "" || c === "") {
+      continue;
+    }
+    if (a === b && b === c) {
+      won = true;
+      break;
+    }
   }
-  console.log(gameState.board[a]);
 }
-checkWinner();
+console.log(results());
+
+// if these are not the same, there is not a winner...yet or it's a draw. referring to innerText
+
 // const playerTurn = document.createElement('div')
 // playerTurn.classList.add('whos-turn')
 // board.appendChild(playerTurn)
