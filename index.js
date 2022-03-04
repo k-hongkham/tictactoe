@@ -21,10 +21,10 @@ const board = document.querySelector("#board");
 // starting with changing players -ref pixelate workshop
 
 board.addEventListener("click", function (event) {
-  console.log(event.target.id);
   let firstPosition = event.target.id[0];
   let secondPosition = event.target.id[2];
   const position = gameState.board[firstPosition][secondPosition];
+  // the if statement needs to come before declaration in order to avoid having the spaces change because new value is Added. If you pu thtis below gameState.board etcetc. the X and O will be interchangable.
   if (position !== null) {
     return;
   }
@@ -53,6 +53,12 @@ function render() {
   }
 }
 
+// how to verify if the winner is X or O. - you can use the v8 chrome console to see is where the value or"player" is inputted. It appears at innerText.
+function playedCells(cellFilled, cellFilledIdx) {
+  gameState.board[cellFilledIdx] = gameState.currentPlayer;
+  cellFilled.innerHTML = currentPlayer;
+}
+
 function turn() {
   if (gameState.currentPlayer === "X") {
     gameState.currentPlayer = "O";
@@ -60,13 +66,9 @@ function turn() {
     gameState.currentPlayer = "X";
   }
 }
-//classlist will add the class to the element without deleting any existing class names
 
 // How to change players in display. need to add div.
-//addEventListener where clicks then inputs X or O
-
-// How to block filled spaces?
-// if === "", continue? remove the available space?
+//addEventListener where clicks then inputs X or O. You can also ch
 
 //check is there's a winner or tie game. checks by inner texts. check if rows are equal.
 
@@ -94,6 +96,7 @@ function results() {
     let pos1 = game[winning[0]];
     let pos2 = game[winning[1]];
     let pos3 = game[winning[2]];
+
     // if these spaces are blank. there is no possible way to winner.
     if (a === "" || b === "" || c === "") {
       continue;
@@ -104,7 +107,6 @@ function results() {
     }
   }
 }
-console.log(results());
 
 // if these are not the same, there is not a winner...yet or it's a draw. referring to innerText
 
@@ -139,3 +141,5 @@ function restart() {
 // cells[computerIdx - 1].classList.add('computer')
 
 //changing board size. My idea was to create two loops that expand evenly to create n x n grid.
+
+//classlist will add the class to the element without deleting any existing class names
