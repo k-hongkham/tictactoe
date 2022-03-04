@@ -7,8 +7,6 @@ let gameState = {
     [null, null, null],
     [null, null, null],
   ],
-  winner: "WINNER!",
-  tieGame: "IT'S A TIE!",
   currentPlayer: "X",
   gameRunning: true,
 };
@@ -101,19 +99,38 @@ function results() {
     if (a === "" || b === "" || c === "") {
       continue;
     }
+    // these spaces are the same in order for a winner to be declared
     if (a === b && b === c) {
       won = true;
       break;
     }
   }
+  if (roundEnd) {
+    gameRunning.innerHMTL = winScreen();
+    gameState.gameRunning = false;
+    return;
+  }
+  let roundDraw = !gameState.board.includes(null);
+  if (roundDraw) {
+    gameRunning.innerHTML = drawScreen();
+    gameState.gameRunning = false;
+    return;
+  }
 }
 
-// if these are not the same, there is not a winner...yet or it's a draw. referring to innerText
+function winScreen() {
+  return `PLAYER ${gameState.currentPlayer} WINS!!!`;
+}
 
-// const playerTurn = document.createElement('div')
-// playerTurn.classList.add('whos-turn')
-// board.appendChild(playerTurn)
-// playerTurn.innerText = gameState.turn
+function drawScreen() {
+  return "DRAW GAME!!! TRY AGAIN!!!";
+}
+// if these are not the same, there is not a winner...yet or it's a draw. referring to innertext to check for X and O
+
+const playerTurn = document.createElement("div");
+playerTurn.classList.add("turn-display");
+board.appendChild(playerTurn);
+playerTurn.innerText = `${gameState.currentPlayer}`;
 
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
