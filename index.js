@@ -22,6 +22,8 @@ let gameState = {
   player1: "Player X",
   player2: "Player O",
   lastPlayer: `Player O's turn`,
+  isComputer: false,
+  // button sets to true
 };
 
 play1.addEventListener("click", function () {
@@ -58,7 +60,6 @@ function render() {
       // playerTurn.innerText = gameState.currentPlayer;
       gameStatus.innerText = gameState.gameStatus;
       playerCounter.innerHTML = gameState.lastPlayer;
-      console.log("57", gameState.lastPlayer);
       // render gamestatus
     }
   }
@@ -131,9 +132,6 @@ function drawScreen(drawText) {
     gameState.gameStatus = "DRAW GAME!!! TRY AGAIN!!!";
   }
 }
-// const playerTurn = document.createElement("div");
-// playerTurn.classList.add("turn-display");
-// footer.appendChild(playerTurn);
 
 const gameStatus = document.createElement("div");
 gameStatus.classList.add("status");
@@ -156,17 +154,15 @@ resetBtn.addEventListener("click", function () {
 });
 
 function reset() {
-  gameState = {
-    board: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
-    currentPlayer: "X",
-    gameRunning: true,
-    gameStatus: "LIVE",
-    lastPlayer: `${gameState.player2}'s turn`,
-  };
+  gameState.board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ];
+  gameState.currentPlayer = "X";
+  gameState.gameRunning = true;
+  gameState.gameStatus = "LIVE";
+  gameState.lastPlayer = `${gameState.player2}'s turn`;
 }
 
 function computer(board) {
