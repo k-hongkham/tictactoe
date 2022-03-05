@@ -10,13 +10,13 @@ body {
   align-items: center;
   border: 10px solid black;
   flex-direction: column;
-  background: gray;
-  height: 100vh;
+  background: lightblue;
+  height: 100%;
 }
 
 h1 {
   text-align: center;
-  font-size: 10em;
+  font-size: 5em;
 }
 table {
   display: flex;
@@ -64,12 +64,21 @@ tr:last-child div {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 50px;
+  width: 100px;
 }
 
 .turn-display {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 50px;
+  width: 100px;
+  background: red;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100px;
+  background: lightgray;
 }
