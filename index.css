@@ -8,7 +8,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 10px solid black;
   flex-direction: column;
   background: lightblue;
   height: 100%;
@@ -69,7 +68,7 @@ tr:last-child div {
   width: 100px;
 }
 
-.turn-display {
+/* .turn-display {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -77,7 +76,7 @@ tr:last-child div {
   height: 1.5rem;
   background: red;
   border: 3px solid red;
-}
+} */
 
 .status {
   display: flex;
@@ -101,12 +100,28 @@ option {
   background: red;
 }
 
-#player-turn {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100px;
-  max-height: 100px;
-  background: black;
-  border: 10px solid black;
+#player-counter {
+  max-width: 10rem;
+  max-height: 10rem;
+  background: pink;
+  border: 10px solid pink;
+  border-radius: 25%;
+  font-size: 25px;
+}
+
+.turns {
+  max-width: 10rem;
+  max-height: 10rem;
+  background: red;
+  border: 3px solid red;
+  border-radius: 25%;
+  font-size: 25px;
+}
+.reset {
+  max-width: 10rem;
+  max-height: 10rem;
+  background: blue;
+  border: 3px solid blue;
+  border-radius: 25%;
+  font-size: 25px;
 }

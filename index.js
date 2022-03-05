@@ -3,9 +3,13 @@
 
 const board = document.querySelector("#board");
 const xoText = document.getElementsByClassName("inner-text");
+let name1 = document.getElementById("name1");
+let name2 = document.getElementById("name2");
 const footer = document.querySelector("#who-turn");
 let round = false;
 let cell = document.querySelectorAll(".cell");
+const play1 = document.getElementById("submit-name1");
+const play2 = document.getElementById("submit-name2");
 let gameState = {
   board: [
     [null, null, null],
@@ -15,9 +19,17 @@ let gameState = {
   currentPlayer: "X",
   gameRunning: true,
   gameStatus: "LIVE",
-  lastPlayer: "O",
+  player1: "Player X",
+  player2: "Player O",
+  lastPlayer: `Player O's turn`,
 };
 
+play1.addEventListener("click", function () {
+  gameState.player1 = name1.value;
+});
+play2.addEventListener("click", function () {
+  gameState.player2 = name2.value;
+});
 // //access above by gameState.board[0][0]
 // const board so we can add divs for playerturn records, announcements
 
@@ -32,9 +44,9 @@ board.addEventListener("click", function (event) {
   }
 
   gameState.board[firstPosition][secondPosition] = gameState.currentPlayer;
-  checkWin();
   render();
   turn();
+  checkWin();
 });
 
 function render() {
@@ -46,6 +58,7 @@ function render() {
       // playerTurn.innerText = gameState.currentPlayer;
       gameStatus.innerText = gameState.gameStatus;
       playerCounter.innerHTML = gameState.lastPlayer;
+      console.log("57", gameState.lastPlayer);
       // render gamestatus
     }
   }
@@ -54,10 +67,10 @@ function render() {
 function turn() {
   if (gameState.currentPlayer === "X") {
     gameState.currentPlayer = "O";
-    gameState.lastPlayer = "X";
+    gameState.lastPlayer = `${gameState.player1}'s turn`;
   } else if (gameState.currentPlayer === "O") {
     gameState.currentPlayer = "X";
-    gameState.lastPlayer = "O";
+    gameState.lastPlayer = `${gameState.player2}'s turn`;
   }
 }
 
@@ -68,17 +81,18 @@ function checkRow(array) {
   for (let w = 0; w < array.length; w++) {
     if (xoText[array[w]].innerText === "X") {
       x++;
-      round = true;
+      console.log("X value" + " " + x);
     } else if (xoText[array[w]].innerText === "O") {
       o++;
-      round = true;
+      console.log("O value" + " " + o);
     }
   }
-  if (x >= 3 && round) {
-    winScreen();
-  } else if (o >= 3 && round) {
-    winScreen();
-    console.log("end");
+  if (x >= 3) {
+    round = true;
+    winScreen("X");
+  } else if (o >= 3) {
+    round = true;
+    winScreen("O");
   } else if (sum == 9) {
     console.log("tie");
     drawScreen();
@@ -102,11 +116,13 @@ const checkWin = function () {
   }
 };
 
-function winScreen(winText) {
-  if (gameState.lastPlayer === "X") {
-    gameState.gameStatus = `PLAYER ${gameState.lastPlayer} WINS!!!`;
-  } else if (gameState.lastPlayer === "O") {
-    gameState.gameStatus = `PLAYER ${gameState.lastPlayer} WINS!!!`;
+function winScreen(param) {
+  if (param === "X") {
+    gameState.gameStatus = "PLAYER X WINS!!!";
+    gameStatus.innerText = gameState.gameStatus;
+  } else if (param === "O") {
+    gameState.gameStatus = `PLAYER O WINS!!!`;
+    gameStatus.innerText = gameState.gameStatus;
   }
 }
 
@@ -136,6 +152,7 @@ resetBtn.innerText = "RESET";
 resetBtn.addEventListener("click", function () {
   reset();
   render();
+  init();
 });
 
 function reset() {
@@ -148,11 +165,28 @@ function reset() {
     currentPlayer: "X",
     gameRunning: true,
     gameStatus: "LIVE",
-    lastPlayer: "O",
+    lastPlayer: `${gameState.player2}'s turn`,
   };
 }
 
-//Extra goals is computer player, possibly different modes, easy, med, hard
-// const randomComp = Math.floor(math.random() * 9);
-// const computerIdx = gameState.board[randomComp][randomComp];
-// cells[computerIdx - 1].classList.add("computer");
+function computer(board) {
+  this.turn = function () {
+    let available = gameState.board.filter((board) => board.length);
+    const move = Math.floor(Math.random() * available.length - 1);
+    availablePositions;
+  };
+}
+
+// function computer () {
+//   for (let i = 0; i < gameState.board.length; i++) for (let j = 0; j < gameState.board[i].length; j++) If (gameState.board === null) {
+
+//   }
+
+//   }
+// }
+
+function init() {
+  playerCounter.innerText = `${gameState.player1}'s turn`;
+}
+
+init();
