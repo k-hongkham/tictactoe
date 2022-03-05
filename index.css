@@ -62,23 +62,35 @@ tr:last-child div {
 
 .reset {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
+  max-height: 100px;
   width: 100px;
 }
 
 .turn-display {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
+  flex-direction: row;
   width: 100px;
+  height: 1.5rem;
   background: red;
+  border: 3px solid red;
 }
 
 .status {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   width: 100px;
+  max-height: 100px;
   background: lightgray;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 2rem auto;
 }

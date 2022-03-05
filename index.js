@@ -1,7 +1,9 @@
 //Game objective is to get 3 in a row
 //starting point given by workshop
 
+const board = document.querySelector("#board");
 const xoText = document.getElementsByClassName("inner-text");
+const footer = document.querySelector("#who-turn");
 
 let gameState = {
   board: [
@@ -16,8 +18,6 @@ let gameState = {
 
 // //access above by gameState.board[0][0]
 // const board so we can add divs for playerturn records, announcements
-
-const board = document.querySelector("#board");
 
 // starting with changing players -ref pixelate workshop
 
@@ -108,18 +108,18 @@ function drawScreen() {
 
 const playerTurn = document.createElement("div");
 playerTurn.classList.add("turn-display");
-board.appendChild(playerTurn);
+footer.appendChild(playerTurn);
 
 const gameStatus = document.createElement("div");
 gameStatus.classList.add("status");
-board.appendChild(gameStatus);
+footer.appendChild(gameStatus);
 gameStatus.innerText = gameState.gameStatus;
 
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
 const resetBtn = document.createElement("button");
 resetBtn.classList.add("reset");
-board.appendChild(resetBtn);
+footer.appendChild(resetBtn);
 resetBtn.innerText = "RESET";
 
 resetBtn.addEventListener("click", function () {
