@@ -4,7 +4,8 @@
 const board = document.querySelector("#board");
 const xoText = document.getElementsByClassName("inner-text");
 const footer = document.querySelector("#who-turn");
-
+let round = false;
+let cell = document.querySelectorAll(".cell");
 let gameState = {
   board: [
     [null, null, null],
@@ -14,6 +15,7 @@ let gameState = {
   currentPlayer: "X",
   gameRunning: true,
   gameStatus: "LIVE",
+  lastPlayer: "O",
 };
 
 // //access above by gameState.board[0][0]
@@ -30,13 +32,10 @@ board.addEventListener("click", function (event) {
   }
 
   gameState.board[firstPosition][secondPosition] = gameState.currentPlayer;
-
+  checkWin();
   render();
   turn();
 });
-
-// const imageX = document.createElement('img')
-// imageX.src = url("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/letter_X_red-1024.png");
 
 function render() {
   for (let i = 0; i < gameState.board.length; i++) {
@@ -46,43 +45,46 @@ function render() {
       cell.innerText = currentElement;
       // playerTurn.innerText = gameState.currentPlayer;
       gameStatus.innerText = gameState.gameStatus;
-      playerCounter.innerHTML = gameState.currentPlayer;
+      playerCounter.innerHTML = gameState.lastPlayer;
       // render gamestatus
     }
   }
-  checkWin();
 }
 
 function turn() {
   if (gameState.currentPlayer === "X") {
     gameState.currentPlayer = "O";
+    gameState.lastPlayer = "X";
   } else if (gameState.currentPlayer === "O") {
     gameState.currentPlayer = "X";
+    gameState.lastPlayer = "O";
   }
 }
 
 function checkRow(array) {
   let x = 0;
   let o = 0;
+  let sum = o + x;
   for (let w = 0; w < array.length; w++) {
     if (xoText[array[w]].innerText === "X") {
       x++;
+      round = true;
     } else if (xoText[array[w]].innerText === "O") {
       o++;
+      round = true;
     }
   }
-  if (x >= 3) {
-    console.log(`${gameState.currentPlayer} wins`);
+  if (x >= 3 && round) {
     winScreen();
-  } else if (o >= 3) {
+  } else if (o >= 3 && round) {
     winScreen();
-    console.log(`${gameState.currentPlayer} wins`);
+    console.log("end");
+  } else if (sum == 9) {
+    console.log("tie");
+    drawScreen();
+    round = false;
   }
-  drawScreen();
-  console.log("no win yet");
-  return false;
 }
-
 const checkWin = function () {
   let winning = [
     [0, 1, 2],
@@ -101,15 +103,15 @@ const checkWin = function () {
 };
 
 function winScreen(winText) {
-  if (gameState.currentPlayer === "X") {
-    gameState.gameStatus = `PLAYER ${gameState.currentPlayer} WINS!!!`;
-  } else if (gameState.currentPlayer === "O") {
-    gameState.gameStatus = `PLAYER ${gameState.currentPlayer} WINS!!!`;
+  if (gameState.lastPlayer === "X") {
+    gameState.gameStatus = `PLAYER ${gameState.lastPlayer} WINS!!!`;
+  } else if (gameState.lastPlayer === "O") {
+    gameState.gameStatus = `PLAYER ${gameState.lastPlayer} WINS!!!`;
   }
 }
 
 function drawScreen(drawText) {
-  if (gameState.currentPlayer === "X") {
+  if (gameState.board === "X") {
     gameState.gameStatus = "DRAW GAME!!! TRY AGAIN!!!";
   }
 }
@@ -145,6 +147,8 @@ function reset() {
     ],
     currentPlayer: "X",
     gameRunning: true,
+    gameStatus: "LIVE",
+    lastPlayer: "O",
   };
 }
 

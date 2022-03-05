@@ -26,6 +26,7 @@ table {
   justify-content: center;
   background: gray;
   margin: 0 auto;
+  font-weight: 10rem;
 }
 
 /* each box of the game area */
