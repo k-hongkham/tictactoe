@@ -44,7 +44,9 @@ function render() {
       let currentElement = gameState.board[i][k];
       let cell = document.getElementById(`${i}-${k}`);
       cell.innerText = currentElement;
-      playerTurn.innerText = gameState.currentPlayer;
+      // playerTurn.innerText = gameState.currentPlayer;
+      gameStatus.innerText = gameState.gameStatus;
+      playerCounter.innerHTML = gameState.currentPlayer;
       // render gamestatus
     }
   }
@@ -98,22 +100,29 @@ const checkWin = function () {
   }
 };
 
-function winScreen() {
-  return `PLAYER ${gameState.currentPlayer} WINS!!!`;
+function winScreen(winText) {
+  if (gameState.currentPlayer === "X") {
+    gameState.gameStatus = `PLAYER ${gameState.currentPlayer} WINS!!!`;
+  } else if (gameState.currentPlayer === "O") {
+    gameState.gameStatus = `PLAYER ${gameState.currentPlayer} WINS!!!`;
+  }
 }
 
-function drawScreen() {
-  return "DRAW GAME!!! TRY AGAIN!!!";
+function drawScreen(drawText) {
+  if (gameState.currentPlayer === "X") {
+    gameState.gameStatus = "DRAW GAME!!! TRY AGAIN!!!";
+  }
 }
-
-const playerTurn = document.createElement("div");
-playerTurn.classList.add("turn-display");
-footer.appendChild(playerTurn);
+// const playerTurn = document.createElement("div");
+// playerTurn.classList.add("turn-display");
+// footer.appendChild(playerTurn);
 
 const gameStatus = document.createElement("div");
 gameStatus.classList.add("status");
 footer.appendChild(gameStatus);
-gameStatus.innerText = gameState.gameStatus;
+
+const playerCounter = document.getElementById("player-counter");
+gameStatus.classList.add("turns");
 
 // //include a reset button once the game is over
 // //need to make a board first then reset back to null
@@ -141,5 +150,5 @@ function reset() {
 
 //Extra goals is computer player, possibly different modes, easy, med, hard
 // const randomComp = Math.floor(math.random() * 9);
-// const computerIdx = gameState.board[randomComp][randomComp]
-// cells[computerIdx - 1].classList.add('computer')
+// const computerIdx = gameState.board[randomComp][randomComp];
+// cells[computerIdx - 1].classList.add("computer");

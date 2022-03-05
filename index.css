@@ -94,3 +94,18 @@ footer {
   justify-content: center;
   margin: 2rem auto;
 }
+
+option {
+  margin-bottom: 2em;
+  background: red;
+}
+
+#player-turn {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100px;
+  max-height: 100px;
+  background: black;
+  border: 10px solid black;
+}
