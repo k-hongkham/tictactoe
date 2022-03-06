@@ -9,7 +9,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: lightblue;
+  background: #9b2226;
   height: 100%;
 }
 
@@ -34,7 +34,7 @@ table {
   width: 300px;
   height: 300px;
   flex-basis: 0 0 300px;
-  border: 3px solid red;
+  border: 3px solid #ae2012;
   justify-content: center;
   align-items: center;
 }
@@ -84,7 +84,7 @@ tr:last-child div {
   flex-wrap: wrap;
   width: 100px;
   max-height: 100px;
-  background: lightgray;
+  background: #e9d8a6;
 }
 
 footer {
@@ -107,21 +107,21 @@ option {
   border: 10px solid pink;
   border-radius: 25%;
   font-size: 25px;
+  margin-right: 1em;
 }
 
 .turns {
-  max-width: 10rem;
-  max-height: 10rem;
-  background: red;
-  border: 3px solid red;
+  max-width: 15rem;
+  max-height: 15rem;
+  background: #94d2bd;
   border-radius: 25%;
   font-size: 25px;
+  margin-right: 1em;
 }
 .reset {
   max-width: 10rem;
   max-height: 10rem;
-  background: blue;
-  border: 3px solid blue;
+  background: #ee9b00;
   border-radius: 25%;
   font-size: 25px;
 }
@@ -133,4 +133,9 @@ option {
   width: 100px;
   max-height: 100px;
   background: lightgray;
+  margin-top: 0.75em;
+}
+
+.names {
+  margin: 0.4em auto;
 }

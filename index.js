@@ -10,7 +10,7 @@ let round = false;
 let cell = document.querySelectorAll(".cell");
 const play1 = document.getElementById("submit-name1");
 const play2 = document.getElementById("submit-name2");
-const singleComp = document.getElementById("computer");
+// const singleComp = document.getElementById("computer");
 
 let gameState = {
   board: [
@@ -34,23 +34,19 @@ play2.addEventListener("click", function () {
   gameState.player2 = name2.value;
 });
 
-singleComp.addEventListener("click", function () {
-  gameState.isComputer = true;
-});
+// singleComp.addEventListener("click", function () {
+//   gameState.isComputer = true;
+// });
 
-function computerPlay() {
-  if (gameState.isComputer === true) {
-    const random = Math.floor(Math.random() * gameState.board.length);
-    const compIdx = gameState.board[random];
-    cell[compIdx - 1].classList.add("comp");
-  }
-  if (cell[compIdx - 1] === null) {
-    gameState.board.push("O");
-  }
-  if (gameState.lastPlayer === "Player O's turn") {
-    turn();
-  }
-}
+// function computerPlay() {
+//   const random = Math.floor(Math.random() * gameState.board.length);
+//   while (gameState.board[random][random] === null) {
+//     gameState.board.push("O");
+//   }
+//   if (gameState.lastPlayer !== null) {
+//     turn();
+//   }
+// }
 
 // //access above by gameState.board[0][0]
 // const board so we can add divs for playerturn records, announcements
@@ -93,6 +89,9 @@ function turn() {
     gameState.currentPlayer = "X";
     gameState.lastPlayer = `${gameState.player2}'s turn`;
   }
+  // else if (gameState.isComputer === true) {
+  //   computerPlay();
+  // }
 }
 
 function checkRow(array) {
@@ -147,10 +146,9 @@ function winScreen(param) {
   }
 }
 
-function drawScreen(drawText) {
-  if (gameState.board === "X") {
-    gameState.gameStatus = "DRAW GAME!!! TRY AGAIN!!!";
-  }
+function drawScreen(param) {
+  gameState.gameStatus = "DRAW GAME!!! TRY AGAIN!!!";
+  gameStatus.innerText = gameState.gameStatus;
 }
 
 const gameStatus = document.createElement("div");
