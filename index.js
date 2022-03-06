@@ -10,6 +10,8 @@ let round = false;
 let cell = document.querySelectorAll(".cell");
 const play1 = document.getElementById("submit-name1");
 const play2 = document.getElementById("submit-name2");
+const singleComp = document.getElementById("computer");
+
 let gameState = {
   board: [
     [null, null, null],
@@ -21,9 +23,8 @@ let gameState = {
   gameStatus: "LIVE",
   player1: "Player X",
   player2: "Player O",
-  lastPlayer: `Player O's turn`,
+  lastPlayer: "Player O's turn",
   isComputer: false,
-  // button sets to true
 };
 
 play1.addEventListener("click", function () {
@@ -32,6 +33,25 @@ play1.addEventListener("click", function () {
 play2.addEventListener("click", function () {
   gameState.player2 = name2.value;
 });
+
+singleComp.addEventListener("click", function () {
+  gameState.isComputer = true;
+});
+
+function computerPlay() {
+  if (gameState.isComputer === true) {
+    const random = Math.floor(Math.random() * gameState.board.length);
+    const compIdx = gameState.board[random];
+    cell[compIdx - 1].classList.add("comp");
+  }
+  if (cell[compIdx - 1] === null) {
+    gameState.board.push("O");
+  }
+  if (gameState.lastPlayer === "Player O's turn") {
+    turn();
+  }
+}
+
 // //access above by gameState.board[0][0]
 // const board so we can add divs for playerturn records, announcements
 

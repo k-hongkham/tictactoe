@@ -125,3 +125,12 @@ option {
   border-radius: 25%;
   font-size: 25px;
 }
+
+#computer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100px;
+  max-height: 100px;
+  background: lightgray;
+}
