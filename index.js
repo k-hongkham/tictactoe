@@ -10,8 +10,9 @@ let round = false;
 let cell = document.querySelectorAll(".cell");
 const play1 = document.getElementById("submit-name1");
 const play2 = document.getElementById("submit-name2");
-// const singleComp = document.getElementById("computer");
+const singleComp = document.getElementById("computer");
 
+//default arcade game params.
 let gameState = {
   board: [
     [null, null, null],
@@ -27,6 +28,7 @@ let gameState = {
   isComputer: false,
 };
 
+//player name inputs and submission buttons
 play1.addEventListener("click", function () {
   gameState.player1 = name1.value;
 });
@@ -34,19 +36,11 @@ play2.addEventListener("click", function () {
   gameState.player2 = name2.value;
 });
 
-// singleComp.addEventListener("click", function () {
-//   gameState.isComputer = true;
-// });
-
-// function computerPlay() {
-//   const random = Math.floor(Math.random() * gameState.board.length);
-//   while (gameState.board[random][random] === null) {
-//     gameState.board.push("O");
-//   }
-//   if (gameState.lastPlayer !== null) {
-//     turn();
-//   }
-// }
+//Single player mode.
+singleComp.addEventListener("click", function () {
+  document.getElementById("computer").disabled = true;
+  gameState.isComputer = true;
+});
 
 // //access above by gameState.board[0][0]
 // const board so we can add divs for playerturn records, announcements
@@ -54,6 +48,9 @@ play2.addEventListener("click", function () {
 // starting with changing players -ref pixelate workshop
 
 board.addEventListener("click", function (event) {
+  if (round) {
+    return;
+  }
   let firstPosition = event.target.id[0];
   let secondPosition = event.target.id[2];
   let position = gameState.board[firstPosition][secondPosition];
@@ -63,10 +60,11 @@ board.addEventListener("click", function (event) {
 
   gameState.board[firstPosition][secondPosition] = gameState.currentPlayer;
   render();
-  turn();
+  turn(false);
   checkWin();
 });
 
+//refreshers the page after each turn.
 function render() {
   for (let i = 0; i < gameState.board.length; i++) {
     for (let k = 0; k < gameState.board[i].length; k++) {
@@ -81,19 +79,43 @@ function render() {
   }
 }
 
-function turn() {
-  if (gameState.currentPlayer === "X") {
-    gameState.currentPlayer = "O";
-    gameState.lastPlayer = `${gameState.player1}'s turn`;
-  } else if (gameState.currentPlayer === "O") {
-    gameState.currentPlayer = "X";
-    gameState.lastPlayer = `${gameState.player2}'s turn`;
+//verifies if a computer is playing, then assigns players accordingly.
+function turn(hasComputerPlayed) {
+  if (gameState.isComputer === true && hasComputerPlayed == false) {
+    computerPlay();
+  } else if (gameState.isComputer == false) {
+    // 2 player block
+    if (gameState.currentPlayer === "X") {
+      gameState.currentPlayer = "O";
+      gameState.lastPlayer = `${gameState.player1}'s turn`;
+    } else if (gameState.currentPlayer === "O") {
+      gameState.currentPlayer = "X";
+      gameState.lastPlayer = `${gameState.player2}'s turn`;
+    }
   }
-  // else if (gameState.isComputer === true) {
-  //   computerPlay();
-  // }
 }
 
+//code that makes the computer work.
+function computerPlay() {
+  if (round) return;
+  let flag = true;
+  while (flag) {
+    const index1 = Math.floor(Math.random() * 3);
+    const index2 = Math.floor(Math.random() * 3);
+    if (gameState.board[index1][index2] === null) {
+      gameState.board[index1][index2] = "O";
+      flag = false;
+      gameState.currentPlayer = "X";
+      gameState.lastPlayer = `Player X's turn`;
+      render();
+    }
+  }
+  if (gameState.lastPlayer !== null) {
+    turn(true); // hasComputerPlayed is true now
+  }
+}
+
+//checks if there's a winner.
 function checkRow(array) {
   let x = 0;
   let o = 0;
@@ -101,10 +123,10 @@ function checkRow(array) {
   for (let w = 0; w < array.length; w++) {
     if (xoText[array[w]].innerText === "X") {
       x++;
-      console.log("X value" + " " + x);
+      // console.log("X value" + " " + x);
     } else if (xoText[array[w]].innerText === "O") {
       o++;
-      console.log("O value" + " " + o);
+      // console.log("O value" + " " + o);
     }
   }
   if (x >= 3) {
@@ -114,7 +136,7 @@ function checkRow(array) {
     round = true;
     winScreen("O");
   } else if (sum == 9) {
-    console.log("tie");
+    // console.log("tie");
     drawScreen();
     round = false;
   }
@@ -136,6 +158,7 @@ const checkWin = function () {
   }
 };
 
+//win and draw messages.
 function winScreen(param) {
   if (param === "X") {
     gameState.gameStatus = "PLAYER X WINS!!!";
@@ -151,6 +174,7 @@ function drawScreen(param) {
   gameStatus.innerText = gameState.gameStatus;
 }
 
+//DOM manipulation
 const gameStatus = document.createElement("div");
 gameStatus.classList.add("status");
 footer.appendChild(gameStatus);
@@ -165,6 +189,7 @@ resetBtn.classList.add("reset");
 footer.appendChild(resetBtn);
 resetBtn.innerText = "RESET";
 
+//resetting the board.
 resetBtn.addEventListener("click", function () {
   reset();
   render();
@@ -181,24 +206,11 @@ function reset() {
   gameState.gameRunning = true;
   gameState.gameStatus = "LIVE";
   gameState.lastPlayer = `${gameState.player2}'s turn`;
+  document.getElementById("computer").disabled = false;
+  gameState.isComputer = false;
 }
 
-function computer(board) {
-  this.turn = function () {
-    let available = gameState.board.filter((board) => board.length);
-    const move = Math.floor(Math.random() * available.length - 1);
-    availablePositions;
-  };
-}
-
-// function computer () {
-//   for (let i = 0; i < gameState.board.length; i++) for (let j = 0; j < gameState.board[i].length; j++) If (gameState.board === null) {
-
-//   }
-
-//   }
-// }
-
+//resets the player turn once the game is reset.
 function init() {
   playerCounter.innerText = `${gameState.player1}'s turn`;
 }
